@@ -1,38 +1,22 @@
-FROM ubuntu:18.04 AS builder
+ARG ALPINE_MONO_VERSION=5.20
 
-WORKDIR /opt
+FROM frolvlad/alpine-mono:${ALPINE_MONO_VERSION}-glibc
 
-RUN apt-get update && apt-get install -y unzip 
+RUN apk add --no-cache wget ca-certificates
 
-ENV VERSION=1410
+WORKDIR /terraria-server
 
-# Temporarily commented out until link is resolved in terraria.org
-# ADD http://terraria.org/server/terraria-server-${VERSION}.zip terraria-server.zip
-ADD https://terraria.org/system/dedicated_servers/archives/000/000/040/original/terraria-server-${VERSION}.zip terraria-server.zip
-
-RUN unzip terraria-server.zip "${VERSION}/Linux/*" \
-    && chmod -R a+rw ${VERSION}/Linux/* \
-    && chmod a+x ${VERSION}/Linux/TerrariaServer* \
-    && mv ${VERSION}/Linux terraria/
-
-FROM ubuntu:18.04
-
-LABEL maintainer="tiemonl"
-
-WORKDIR /opt/terraria
-
-COPY --from=builder /opt/terraria .
-
-ENV MAX_PLAYERS=8 \
-    WORLD=Terraria.wld \
+ENV WORLD=Terraria.wld \
+    WORLD_NAME=Terraria \
+    WORLD_SIZE=1 \
+    SEED="" \
+    DIFFICULTY=0 \
+    NPC_STREAM=60 \
+    MAX_PLAYERS=8 \
     PORT=7777 \
     PASSWORD="" \
-    SEED="" \
-    MOTD="" \
-    WORLD_SIZE=1 \
-    DIFFICULTY=0 \
-    WORLD_NAME=Terraria \
     SECURE=1 \
+    MOTD="" \
     LANGUAGE="en-US" \
     SLOW_LIQUIDS=0 \
     ROLLING_BACKUP=2 \
@@ -52,9 +36,9 @@ ENV MAX_PLAYERS=8 \
     J_BIOME=2 \
     J_SPAWN_RATE=2
 
-ADD config_creator.sh .
+ADD entrypoint.sh ./
 
-VOLUME ["/world"]
-EXPOSE ${PORT}
+VOLUME [ "/world" ]
+EXPOSE ${PORT}/tcp
 
-ENTRYPOINT sh config_creator.sh
+ENTRYPOINT [ "/bin/sh", "./entrypoint.sh" ]
