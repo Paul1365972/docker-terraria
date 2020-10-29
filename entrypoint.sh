@@ -1,13 +1,21 @@
 #!/bin/bash
 
+echo "Generating run arguments"
+
+args="-config ./serverconfig.txt"
+args=$args" -announcementboxrange $ANNOUNCEMENT_BOX_RANGE"
+if [ "$ANNOUNCEMENT_BOX" = "0" ]; then
+    args=$args" -disableannouncementbox"
+fi
+
 echo "Generating serverconfig.txt"
 
 cat > ./serverconfig.txt <<EOF
 # Terraria Config
-worldpath=/world
 banlist=banlist.txt
+worldpath=/world
 
-world=/world/$WORLD
+world=/world/$WORLD_NAME.wld
 worldname=$WORLD_NAME
 autocreate=$WORLD_SIZE
 $([ -z "$SEED" ] && echo "#seed=" || echo "seed=$SEED")
@@ -22,7 +30,7 @@ language=$LANGUAGE
 slowliquids=$SLOW_LIQUIDS
 worldrollbackstokeep=$ROLLING_BACKUP
 
-#Journey mode config:
+#Journey mode config
 journeypermission_time_setspeed=$J_TIME_SPEED
 journeypermission_time_setfrozen=$J_TIME_TOGGLE
 journeypermission_time_setdawn=$J_TIME_DAWN
@@ -42,14 +50,19 @@ journeypermission_setspawnrate=$J_SPAWN_RATE
 EOF
 
 echo "Fetching latest terraria server download url"
-dl_link = $(wget -qO - "https://runkit.io/paul1365972/terraria-latest-version-api/branches/master")
+dl_link=$(wget -qO - "https://runkit.io/paul1365972/terraria-latest-version-api/branches/master")
 
 echo "Downloading $dl_link"
-wget -qO "tmp.zip" "$dl_link"
-unzip -q -o "tmp.zip" -d "tmp/"
-dir = "tmp/*/Linux"
-mv $dir/TerrariaServer.exe $dir/FNA.dll "./"
-rm -rf "tmp.zip" "tmp/"
+wget -O "./tmp.zip" "$dl_link"
+
+echo "Extracting archive"
+mkdir -p "./tmp/"
+unzip -q -o "./tmp.zip" -d "./tmp"
+
+echo "Cleaning up"
+dir="./tmp/*/Linux"
+mv -f $dir/TerrariaServer.exe $dir/FNA.dll "./"
+rm -rf "./tmp.zip" "./tmp/"
 
 echo "Starting server"
-./TerrariaServer.exe -config serverconfig.txt
+mono --server --gc=sgen -O=all ./TerrariaServer.exe $args

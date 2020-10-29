@@ -6,11 +6,12 @@ RUN apk add --no-cache wget ca-certificates
 
 WORKDIR /terraria-server
 
-ENV WORLD=Terraria.wld \
-    WORLD_NAME=Terraria \
+ENV WORLD_NAME=Terraria \
     WORLD_SIZE=1 \
     SEED="" \
     DIFFICULTY=0 \
+    ANNOUNCEMENT_BOX=1 \
+    ANNOUNCEMENT_BOX_RANGE=-1 \
     NPC_STREAM=60 \
     MAX_PLAYERS=8 \
     PORT=7777 \

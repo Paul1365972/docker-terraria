@@ -11,13 +11,22 @@ docker run \
   --detach \
   -it \
   -v <host_volume>:/world \
-  -e WORLD=World_Name.wld \
-  -e PASSWORD=password \
+  -e WORLD_NAME=Terraria \
+  -e PASSWORD=<password> \
   -p 7777:7777 \
-tiemonl/docker_terraria ./config_creator.sh
+paul1365972/docker-terraria
 ```
 
 Make sure to add any environment variables you might need by using `-e <ENV_NAME>=<VALUE>`
+
+#### Resources
+
+| Resource | Minimum | Recommended | Logical maximum |
+| -------- | ------- | ----------- | --------------- |
+| Memory | 1.3 GiB | 1.5 GiB | 2 GiB |
+| CPU | 0.5 vCPU | 1.0 vCPU | 2 vCPU |
+
+*Note: The minimum memory applies to large worlds, smaller ones will need even less memory.*
 
 ### Server commands
 
@@ -55,20 +64,21 @@ Run `docker attach terraria` or `docker attach <name>` replacing `<name>` if you
 
 | ENV Variable | Information | Default | Misc |
 | ------------ | ----------- | ------- | ---- |
-| VERSION | Version of the server to download | `1405` | Other versions: `1333`, `1344`, `1353` |
-| MAX_PLAYERS | Sets the max number of players allowed on a server.  Value must be between 1 and 255 | `8` | |
-| WORLD | Load a world and automatically start the server. | `Terraria.wld` | Make sure to include `.wld` at the end of the name |
+| WORLD_NAME | Sets the name of the world when using autocreate or loads the specified world. | `Terraria` | |
+| WORLD_SIZE | Creates a new world if none is found. World size is specified by: 1(small), 2(medium), and 3(large). | `1` | |
+| SEED | Sets the world seed when using autocreate |  | |
+| DIFFICULTY | Sets the difficulty of the world when using autocreate 0(classic), 1(expert), 2(master), 3(journey) | `0` | |
+| ANNOUNCEMENT_BOX | Enables the text announcements Announcement Box makes when pulsed from wire | `1` | |
+| ANNOUNCEMENT_BOX_RANGE | Sets the announcement box text messaging range in pixels. | `-1` | Set to `-1` for serverwide announcements |
+| NPC_STREAM | Reduces enemy skipping but increases bandwidth usage. The lower the number the less skipping will happen, but more data is sent. 0 is off. | `60` | |
+| MAX_PLAYERS | Sets the max number of players allowed on a server.  Value must be between 1 and 255 | `8` | Varying resources recommend `2`-`6` |
 | PORT | Set the port number | `7777` | |
 | PASSWORD | Set the server password. |  | |
-| SEED | Sets the world seed when using autocreate |  | |
-| MOTD | Set the message of the day |  | |
-| WORLD_SIZE | Creates a new world if none is found. World size is specified by: 1(small), 2(medium), and 3(large). | `1` | |
-| DIFFICULTY | Sets the difficulty of the world when using autocreate 0(classic), 1(expert), 2(master), 3(journey) | `0` | |
-| WORLD_NAME | Sets the name of the world when using autocreate | `Terraria` | |
 | SECURE | Adds addition cheat protection. | `1` | |
-| ROLLING_BACKUP | Sets the number of rolling world backups to keep | `2` | Maximum value of `9` |
+| MOTD | Set the message of the day |  | |
 | LANGUAGE | Sets the server language from its language code.  | `en-US` | English = en-US, German = de-DE, Italian = it-IT, French = fr-FR, Spanish = es-ES, Russian = ru-RU, Chinese = zh-Hans, Portuguese = pt-BR, Polish = pl-PL |
 | SLOW_LIQUIDS | Reduces maximum liquids moving at the same time. If enabled may reduce lags but liquids may take longer to settle. | `0` | |
+| ROLLING_BACKUP | Sets the number of rolling world backups to keep | `2` | Maximum value of `9` |
 
 ##### Journey mode config
 
