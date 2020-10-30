@@ -14,7 +14,7 @@ docker run \
   -e WORLD_NAME=Terraria \
   -e PASSWORD=<password> \
   -p 7777:7777 \
-paul1365972/docker-terraria
+paul1365972/terraria-docker
 ```
 
 Make sure to add any environment variables you might need by using `-e <ENV_NAME>=<VALUE>`

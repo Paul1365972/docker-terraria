@@ -49,11 +49,8 @@ journeypermission_setspawnrate=$J_SPAWN_RATE
 
 EOF
 
-echo "Fetching latest terraria server download url"
-dl_link=$(wget -qO - "https://runkit.io/paul1365972/terraria-latest-version-api/branches/master")
-
 echo "Downloading $dl_link"
-wget -O "./tmp.zip" "$dl_link"
+wget -O "./tmp.zip" "https://runkit.io/paul1365972/terraria-tml-latest-version-api/branches/master?dl=1"
 
 echo "Extracting archive"
 mkdir -p "./tmp/"
