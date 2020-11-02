@@ -21,10 +21,10 @@ Make sure to add any environment variables you might need by using `-e <ENV_NAME
 
 #### Resources
 
-| Resource | Minimum | Recommended | Logical maximum |
-| -------- | ------- | ----------- | --------------- |
-| Memory | 1.3 GiB | 1.5 GiB | 2 GiB |
-| CPU | 0.5 vCPU | 1.0 vCPU | 2 vCPU |
+| Resource | Minimum | Recommended
+| -------- | ------- | -----------
+| Memory | 1.3 GiB | 1.5 GiB
+| CPU | 1.0 vCPU | 2.0 vCPU
 
 *Note: The minimum memory applies to large worlds, smaller ones will need even less memory.*
 
