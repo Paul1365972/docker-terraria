@@ -13,7 +13,7 @@ echo "Generating serverconfig.txt"
 cat > ./serverconfig.txt <<EOF
 # Terraria Config
 banlist=banlist.txt
-worldpath=/world
+worldpath=/world/
 
 world=/world/$WORLD_NAME.wld
 worldname=$WORLD_NAME
@@ -49,17 +49,17 @@ journeypermission_setspawnrate=$J_SPAWN_RATE
 
 EOF
 
-echo "Downloading $dl_link"
-wget -O "./tmp.zip" "https://runkit.io/paul1365972/terraria-tml-latest-version-api/branches/master?dl=1"
+# TODO: Cache this in seperate volume
+echo "Downloading Terraria"
+wget -O ./tmp.zip "https://runkit.io/paul1365972/terraria-latest-version-api/branches/master?dl=1"
 
 echo "Extracting archive"
-mkdir -p "./tmp/"
-unzip -q -o "./tmp.zip" -d "./tmp"
+mkdir -p ./tmp/
+unzip -q -o ./tmp.zip -d ./tmp
 
 echo "Cleaning up"
-dir="./tmp/*/Linux"
-mv -f $dir/TerrariaServer.exe $dir/FNA.dll "./"
-rm -rf "./tmp.zip" "./tmp/"
+mv -f ./tmp/*/Linux/TerrariaServer.exe ./tmp/*/Linux/FNA.dll ./
+rm -rf ./tmp.zip ./tmp/
 
 echo "Starting server"
 mono --server --gc=sgen -O=all ./TerrariaServer.exe $args

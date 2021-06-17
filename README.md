@@ -2,15 +2,13 @@
 
 ## Usage
 
-### Running
-
 ```bash
 docker run \
   --name=terraria \
   --restart unless-stopped \
   --detach \
   -it \
-  -v <host_volume>:/world \
+  -v <host_volume>:/world/ \
   -e WORLD_NAME=Terraria \
   -e PASSWORD=<password> \
   -p 7777:7777 \
@@ -19,7 +17,7 @@ paul1365972/terraria-docker
 
 Make sure to add any environment variables you might need by using `-e <ENV_NAME>=<VALUE>`
 
-#### Resources
+### Resources
 
 | Resource | Minimum | Recommended
 | -------- | ------- | -----------
@@ -28,7 +26,7 @@ Make sure to add any environment variables you might need by using `-e <ENV_NAME
 
 *Note: The minimum memory applies to large worlds, smaller ones will need even less memory.*
 
-### Server commands
+## Server commands
 
 Run `docker attach terraria` or `docker attach <name>` replacing `<name>` if you named the container differently. Once attached, type any server commands.
   
@@ -57,10 +55,10 @@ Run `docker attach terraria` or `docker attach <name>` replacing `<name>` if you
 | `midnight` | Change time to midnight (12:00 AM). |
 | `settle` | Settle all water. |
 
-### ENV variables
-------
+## ENV variables
 
-##### Server/World config
+
+#### Server/World config
 
 | ENV Variable | Information | Default | Misc |
 | ------------ | ----------- | ------- | ---- |
@@ -80,7 +78,7 @@ Run `docker attach terraria` or `docker attach <name>` replacing `<name>` if you
 | SLOW_LIQUIDS | Reduces maximum liquids moving at the same time. If enabled may reduce lags but liquids may take longer to settle. | `0` | |
 | ROLLING_BACKUP | Sets the number of rolling world backups to keep | `2` | Maximum value of `9` |
 
-##### Journey mode config
+#### Journey mode config
 
 Journey mode power permissions for every individual power. 0: Locked for everyone, 1: Can only be changed by host, 2: Can be changed by everyone
 
