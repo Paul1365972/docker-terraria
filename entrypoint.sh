@@ -13,9 +13,9 @@ echo "Generating serverconfig.txt"
 cat > ./serverconfig.txt <<EOF
 # Terraria Config
 banlist=banlist.txt
-worldpath=/world/
+worldpath=./world/
 
-world=/world/$WORLD_NAME.wld
+world=./world/$WORLD_NAME.wld
 worldname=$WORLD_NAME
 autocreate=$WORLD_SIZE
 $([ -z "$SEED" ] && echo "#seed=" || echo "seed=$SEED")
@@ -62,4 +62,5 @@ mv -f ./tmp/*/Linux/TerrariaServer.exe ./tmp/*/Linux/FNA.dll ./
 rm -rf ./tmp.zip ./tmp/
 
 echo "Starting server"
-mono --server --gc=sgen -O=all ./TerrariaServer.exe $args
+export SERVER_EXECUTABLE="mono"
+exec ./TerrariaServerWrapper --server --gc=sgen -O=all ./TerrariaServer.exe $args

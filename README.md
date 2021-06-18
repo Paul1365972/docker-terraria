@@ -8,7 +8,7 @@ docker run \
   --restart unless-stopped \
   --detach \
   -it \
-  -v <host_volume>:/world/ \
+  -v <host_volume>:/terraria-server/world/ \
   -e WORLD_NAME=Terraria \
   -e PASSWORD=<password> \
   -p 7777:7777 \

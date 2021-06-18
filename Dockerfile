@@ -4,7 +4,10 @@ FROM frolvlad/alpine-mono:${ALPINE_MONO_VERSION}-glibc
 
 RUN apk add --no-cache wget ca-certificates
 
-WORKDIR /terraria-server
+WORKDIR /terraria-server/
+
+ADD https://github.com/joshbarrass/TerrariaServerWrapper/releases/download/v1.0.2/TerrariaServerWrapper-x64 TerrariaServerWrapper
+RUN chmod +x TerrariaServerWrapper
 
 ENV WORLD_NAME=Terraria \
     WORLD_SIZE=1 \
@@ -39,7 +42,7 @@ ENV WORLD_NAME=Terraria \
 
 ADD entrypoint.sh ./
 
-VOLUME [ "/world" ]
+VOLUME [ "/terraria-server/world/" ]
 EXPOSE ${PORT}/tcp
 
 ENTRYPOINT [ "/bin/sh", "./entrypoint.sh" ]
