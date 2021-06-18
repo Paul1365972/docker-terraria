@@ -68,8 +68,8 @@ Run `docker attach terraria` or `docker attach <name>` replacing `<name>` if you
 | DIFFICULTY | Sets the difficulty of the world when using autocreate 0(classic), 1(expert), 2(master), 3(journey) | `0` | |
 | ANNOUNCEMENT_BOX | Enables the text announcements Announcement Box makes when pulsed from wire | `1` | |
 | ANNOUNCEMENT_BOX_RANGE | Sets the announcement box text messaging range in pixels. | `-1` | Set to `-1` for serverwide announcements |
-| NPC_STREAM | Reduces enemy skipping but increases bandwidth usage. The lower the number the less skipping will happen, but more data is sent. 0 is off. | `60` | |
-| MAX_PLAYERS | Sets the max number of players allowed on a server.  Value must be between 1 and 255 | `8` | Varying resources recommend `2`-`6` |
+| NPC_STREAM | Reduces enemy skipping but increases bandwidth usage. The lower the number the less skipping will happen, but more data is sent. 0 is off. | `60` | Varying resources recommend `2`-`6` |
+| MAX_PLAYERS | Sets the max number of players allowed on a server.  Value must be between 1 and 255 | `8` |  |
 | PORT | Set the port number | `7777` | |
 | PASSWORD | Set the server password. |  | |
 | SECURE | Adds addition cheat protection. | `1` | |
